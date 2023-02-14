@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="fr" xml:lang="fr">
+
+<head>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>LoadRunner par Nikola Ivanov et Justin Perron</title>
+    <link rel="stylesheet" type="text/css" href="" />
+    <!-- Code JavaScript local -->
+    <script type="text/javascript">
+        var objCanvas = null;
+        var objC2D = null;
+        var objCycleAnimation = null;
+
+        function initAnimation() {
+            objCanvas = document.getElementById('monCanvas');
+            objCanvas.focus();
+            objC2D = objCanvas.getContext('2d');
+            dessiner(); // Dessiner une première fois
+            animer();  // animer
+        }
+
+        // Un cycle d'animation	
+        function animer() {
+            // Requête pour le prochain cycle
+            objCycleAnimation = requestAnimationFrame(animer);
+
+            // Le cycle d'animation
+            effacerDessin();
+            mettreAjourAnimation();
+            dessiner();
+        }
+
+        // Arrêter l'animation
+        function arreterAnimation() {
+            if (objCycleAnimation != null)
+                cancelAnimationFrame(objCycleAnimation);
+            objCycleAnimation = null;
+        }
+
+        // Pour effacer le dessin
+        function effacerDessin() {
+            objC2D.clearRect(0, 0, objCanvas.width, objCanvas.height);
+        }
+
+        // Pour mettre à jour l'animation
+        function mettreAjourAnimation() {
+
+        }
+
+        // Pour dessiner
+        function dessiner() {
+            objC2D.save()
+            objC2D.restore()
+        }
+
+    </script>
+</head>
+
+<body onload="initAnimation()">
+    <canvas id="monCanvas" width="1080" height="640" tabIndex="1">
+        Votre navigateur ne supporte pas la balise canvas
+    </canvas>
+</body>
+
+</html>
