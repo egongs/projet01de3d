@@ -28,6 +28,9 @@
         var blockSizeY = 35;
         var tabObjets = [];
 
+        var posX = 14;
+        var posY = 14;
+
         function initAnimation() {
             objCanvas = document.getElementById('monCanvas');
             objCanvas.focus();
@@ -50,6 +53,7 @@
             effacerDessin();
             mettreAjourAnimation();
             dessiner();
+
         }
 
         // Arrêter l'animation
@@ -67,21 +71,58 @@
         // Pour mettre à jour l'animation
         function mettreAjourAnimation() {
 
+            // for (let i = 0; i < niveau[0].length; i++) {
+            //     for (let j = 0; j < niveau[0][i].length; j++) {
+            //         if (parseInt(posX) == tabObjets[i][j].posX && parseInt(posY) == tabObjets[i][j].posY) {
+            //             let ligne = niveau[0][j]
+            //             for (let k = 0; k < x.length; k++) {
+            //                 if (ligne[k] == 'O') {
+            //                     let ligneTemp = ligne;
+            //                     ligne = ligne.substring(0, k) + 'Q' + ligneTemp.substring(k + 'Q'.length)
+            //                 }
+            //                 niveau[0][j] = ligne;
+            //                 tabObjets[posY][parseInt(posX)] = '.';
+            //             }
+            //         }
+            //     }
+            // }
+            initTabObjets();
+            dessiner();
+
+        }
+
+
+
+        function mouvement(e) {
+            // console.log(parseInt(posX) + " " + posY)
+            // console.log(tabObjets[posY][parseInt(posX)]);
+            let numCle = e.keyCode;
+            if (numCle === 37 && posX > 0) { // Gauche
+                posX -= 0.06;
+            } else if (numCle === 39 && posX < 27) { // Droite
+                posX += 0.06;
+            }
         }
 
         // Pour dessiner
         function dessiner() {
             objC2D.save()
-            objC2D.fillRect(0,0,objCanvas.width,objCanvas.height)
+            objC2D.fillRect(0, 0, objCanvas.width, objCanvas.height);
             dessinerNiveau()
+            objC2D.beginPath();
+            objC2D.fillStyle = 'white';
+            objC2D.fillRect(posX * blockSizeX, posY * blockSizeY, blockSizeX, blockSizeY);
+            objC2D.closePath();
             objC2D.restore()
         }
+
         function dessinerNiveau() {
             for (var i = 0; i < niveau[0].length; i++) {
                 for (var j = 0; j < niveau[0][i].length; j++) {
-                    if(tabObjets[i][j] != null){
+                    if (tabObjets[i][j] != null) {
+                        // console.log(tabObjets[i][j])
                         objC2D.save();
-                        objC2D.translate(j*blockSizeX, i*blockSizeY);
+                        objC2D.translate(j * blockSizeX, i * blockSizeY);
                         tabObjets[i][j].dessiner();
                         objC2D.restore();
                     }
@@ -89,45 +130,45 @@
             }
 
         }
-        function initImagePlatForm(){
+        function initImagePlatForm() {
             imagePlatForm = new Image();
             imagePlatForm.src = "Capture.PNG"
         }
-        function initImageEchelle(){
+        function initImageEchelle() {
             imageEchelle = new Image();
             imageEchelle.src = "LADDER_SPRITE.PNG"
         }
-        function initImageOr(){
+        function initImageOr() {
             imageOr = new Image();
             imageOr.src = "or.PNG"
         }
-        function initBedBlock(){
+        function initBedBlock() {
             imageBedBlock = new Image();
             imageBedBlock.src = "bedBlock.PNG"
         }
-        function initTabObjets(){
+        function initTabObjets() {
             for (var i = 0; i < niveau[0].length; i++) {
                 tabObjets[i] = [];
                 for (var j = 0; j < niveau[0][i].length; j++) {
                     switch (niveau[0][i].charAt(j)) {
                         case "#":
                             {
-                                tabObjets[i][j] = new Platform(imagePlatForm,blockSizeX,blockSizeY);
+                                tabObjets[i][j] = new Platform(imagePlatForm, blockSizeX, blockSizeY);
                             }
                             break;
                         case "E":
                             {
-                                tabObjets[i][j] = new Echelle(imageEchelle,blockSizeX,blockSizeY);
+                                tabObjets[i][j] = new Echelle(imageEchelle, blockSizeX, blockSizeY);
                             }
                             break;
                         case "O":
                             {
-                                tabObjets[i][j] = new Or(imageOr,blockSizeX,blockSizeY);
+                                tabObjets[i][j] = new Or(imageOr, blockSizeX, blockSizeY, i, j);
                             }
                             break;
                         case "B":
                             {
-                                tabObjets[i][j] = new BedBlock(imageBedBlock,blockSizeX,blockSizeY);
+                                tabObjets[i][j] = new BedBlock(imageBedBlock, blockSizeX, blockSizeY);
                             }
                             break;
                         case "G":
@@ -144,7 +185,7 @@
     </script>
 </head>
 
-<body onload="initAnimation()">
+<body onload="initAnimation()" onkeydown="mouvement(event)">
     <canvas id="monCanvas" width="1080" height="640" tabIndex="1">
         Votre navigateur ne supporte pas la balise canvas
     </canvas>

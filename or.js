@@ -1,8 +1,10 @@
-let Or = function(image,blockSizeX,blockSizeY){
+let Or = function(image,blockSizeX,blockSizeY, posX, posY){
     this.collected = false;
     this.image = image;
     this.blockSizeX = blockSizeX;
     this.blockSizeY = blockSizeY;
+    this.posX = posX;
+    this.posY = posY;
 }
 Or.prototype.dessiner = function()
 {
