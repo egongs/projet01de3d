@@ -9,9 +9,33 @@
     <link rel="stylesheet" type="text/css" href="" />
     <!-- Code JavaScript local -->
     <script type="text/javascript">
+        var niveau = [
+            [
+                "..................G.........",
+                "....O.............G.........",
+                "#######E#######...G.........",
+                ".......E..........G....O....",
+                ".......E....##E...#######E##",
+                ".......E....##E..........E..",
+                ".......E....##E.......O..E..",
+                "##E#####....########E#######",
+                "..E.................E.......",
+                "..E.................E.......",
+                "#########E##########E.......",
+                ".........E..........E.......",
+                ".......O.E..........E...O...",
+                "....E######.........#######E",
+                "....E.............O........E",
+                "############################",
+                "BBBBBBBBBBBBBBBBBBBBBBBBBBBB",
+            ]
+        ];
         var objCanvas = null;
         var objC2D = null;
         var objCycleAnimation = null;
+        var lecture = null;
+        var objPlatform = null;
+        var block = 20;
 
         function initAnimation() {
             objCanvas = document.getElementById('monCanvas');
@@ -52,7 +76,58 @@
         // Pour dessiner
         function dessiner() {
             objC2D.save()
+            objC2D.fillRect(0,0,objCanvas.width,objCanvas.height)
+            contruit()
             objC2D.restore()
+        }
+        function contruit() {
+            for (var i = 0; i < niveau[0].length; i++) {
+                for (var j = 0; j < niveau[0][i].length; j++) {
+
+                    switch (niveau[0][i].charAt(j)) {
+                        case ".":
+                            {
+                                //create black
+                            }
+                            break;
+                        case "#":
+                            {
+
+                                objC2D.moveTo(j*38.75, i*35);
+                                objC2D.rect(j*38.75, i*35, 38.75, 35);
+                                var image = new Image();
+                                image.src = "Capture.PNG"
+                                objC2D.fillStyle = objC2D.createPattern(image, "repeat");
+                                objC2D.fill();
+                                objC2D.closePath();
+
+                            }
+                            break;
+                        case "E":
+                            {
+                                //create Echelle
+                            }
+                            break;
+                        case "O":
+                            {
+                                //create Gold
+                            }
+                            break;
+                        case "B":
+                            {
+                                //create block
+                            }
+                            break;
+                        case "G":
+                            {
+                                //create Winning echelle
+                            }
+                            break;
+
+                    }
+                }
+            }
+
         }
 
     </script>
