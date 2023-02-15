@@ -13,6 +13,7 @@
     <script src="./echelle.js"></script>
     <script src="./or.js"></script>
     <script src="./bedBlock.js"></script>
+    <script src="./runner.js"></script>
     <script type="text/javascript">
         var objCanvas = null;
         var objC2D = null;
@@ -109,10 +110,23 @@
             objC2D.save()
             objC2D.fillRect(0, 0, objCanvas.width, objCanvas.height);
             dessinerNiveau()
-            objC2D.beginPath();
-            objC2D.fillStyle = 'white';
-            objC2D.fillRect(posX * blockSizeX, posY * blockSizeY, blockSizeX, blockSizeY);
-            objC2D.closePath();
+            objC2D.translate(objCanvas.width / 2, objCanvas.height / 2)
+            var runner = new Runner(posX * blockSizeX, posY * blockSizeY)
+            runner.dessiner()
+            // objC2D.beginPath();
+            // objC2D.fillStyle = 'white';
+            // objC2D.fillRect(posX * blockSizeX, posY * blockSizeY, blockSizeX, blockSizeY);
+            // objC2D.closePath();
+            // objC2D.beginPath()
+            // objC2D.fillStyle = "white"
+            // objC2D.translate(objCanvas.width/2,objCanvas.height/2)
+            // objC2D.fillRect(0,0/2,12,10)
+            // objC2D.fillRect(4,10,7,12)
+            // objC2D.rotate(40*Math.PI/180)
+            // objC2D.fillRect(15,10,4,12)
+            // objC2D.rotate(-80*Math.PI/180)
+            // objC2D.fillRect(-9,20,4,12)
+            // objC2D.closePath()
             objC2D.restore()
         }
 
