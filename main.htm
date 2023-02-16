@@ -30,6 +30,10 @@
         var tabObjets = [];
         var binRunnerLeft = false;
         var binRunnerRight = false;
+        var timer = 0;
+        var runner = null;
+        var tabRunnerGauche = [1, 2, 3];
+        var tabRunnerDroite = [1, 2, 3];
 
         var binPeutMonter = false;
         var binPeutDescendre = false;
@@ -93,84 +97,71 @@
             binPeutMonter = (tabObjets[posY][parseInt(posX)] instanceof Echelle);
             binPeutDescendre = (tabObjets[posY + 1][parseInt(posX)] instanceof Echelle);
 
-            // for (let i = 0; i < niveau.length; i++) {
-            //     for (let j = 0; j < niveau[i].length; j++) {
-            //         if (tabObjets[i][j] instanceof Or) {
-            //             var or = new Or(image, blockSizeX, blockSizeX, tabObjets[i][j].posX, tabObjets[i][j].posY)
-            //             if (parseInt(posX) == or.posX
-            //                 && posY == or.posY) {
-            //                 let ligne = niveau[i]
-            //                 for (let k = 0; k < ligne.length; k++) {
-            //                     if (ligne[k] == 'O') {
-            //                         let ligneTemp = ligne;
-            //                         ligne = ligne.substring(0, k) + 'Q' + ligneTemp.substring(k + 'Q'.length)
-            //                     }
-            //                     niveau[i] = ligne;
-            //                     tabObjets[posY][parseInt(posX)] = null;
-            //                 }
-            //             }
-            //         } else if (tabObjets[i][j] instanceof Echelle) {
-            //             var echelle = new Echelle(image, blockSizeX, blockSizeY)
-
-
-            //         }
-            //     }
-            // }
-            // dessiner();
         }
 
         function mouvement(e) {
-            // console.log(parseInt(posX) + " " + posY)
-            // console.log(tabObjets[posY][parseInt(posX)]);
             let numCle = e.keyCode;
             if (numCle === 37 && posX > 0) { // Gauche
                 posX -= 0.06;
                 binRunnerLeft = true;
                 binRunnerRight = false;
+                timer++
             } else if (numCle === 39 && posX < 27) { // Droite
                 posX += 0.06;
                 binRunnerLeft = false;
                 binRunnerRight = true;
+                timer++
             } else if (numCle === 38 && binPeutMonter) { // Haut
                 posY -= 1;
             } else if (numCle === 40 && binPeutDescendre) { // Bas
                 posY += 1;
             }
+            else{
+                timer = 0
+            }
+            
         }
 
         // Pour dessiner
         function dessiner() {
             objC2D.save()
-            // objC2D.fillStyle = "white"
             objC2D.fillRect(0, 0, objCanvas.width, objCanvas.height);
             dessinerNiveau()
-            // objC2D.translate(objCanvas.width / 2, objCanvas.height / 2)
             objC2D.translate(posX * blockSizeX, posY * blockSizeY + 5)
-            var runner = new Runner(posX * blockSizeX, posY * blockSizeY)
+            runner = new Runner(posX * blockSizeX, posY * blockSizeY);
             if (binRunnerLeft) {
-                runner.dessiner()
+                if (timer % 5 == 0) {
+                    runner.dessinerGaucheFull()
+                }
+                else if (timer % 5 == 1) {
+                    runner.dessinerGaucheMid()
+                }
+                else if (timer % 5 == 2) {
+                    runner.dessinerGauche()
+                }
+                else{
+                    runner.dessinerGaucheMid()
+                }
             }
             else if (binRunnerRight) {
-                runner.dessiner2()
+
+                if (timer % 5 == 0) {
+                    runner.dessinerDroiteFull()
+                }
+                else if (timer % 5 == 1) {
+                    runner.dessinerDroiteMid()
+                }
+                else if (timer % 5 == 2) {
+                    runner.dessinerDroite()
+                }
+                else{
+                    runner.dessinerDroiteMid()
+                }
+
             }
             else {
-                runner.dessiner3()
+                runner.dessinerSpawn()
             }
-
-            // objC2D.beginPath();
-            // objC2D.fillStyle = 'white';
-            // objC2D.fillRect(posX * blockSizeX, posY * blockSizeY, blockSizeX, blockSizeY);
-            // objC2D.closePath();
-            // objC2D.beginPath()
-            // objC2D.fillStyle = "white"
-            // objC2D.translate(objCanvas.width/2,objCanvas.height/2)
-            // objC2D.fillRect(0,0/2,12,10)
-            // objC2D.fillRect(4,10,7,12)
-            // objC2D.rotate(40*Math.PI/180)
-            // objC2D.fillRect(15,10,4,12)
-            // objC2D.rotate(-80*Math.PI/180)
-            // objC2D.fillRect(-9,20,4,12)
-            // objC2D.closePath()
             objC2D.restore()
         }
 
@@ -178,7 +169,6 @@
             for (var i = 0; i < niveau.length; i++) {
                 for (var j = 0; j < tabObjets[i].length; j++) {
                     if (tabObjets[i][j] != null) {
-                        // console.log(tabObjets[i][j])
                         objC2D.save();
                         objC2D.translate(j * blockSizeX, i * blockSizeY);
                         tabObjets[i][j].dessiner();
