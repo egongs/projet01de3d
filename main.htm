@@ -28,6 +28,8 @@
         var blockSizeX = 38.57;
         var blockSizeY = 35;
         var tabObjets = [];
+        var binRunnerLeft = false;
+        var binRunnerRight = false;
 
         var posX = 14;
         var posY = 14;
@@ -100,19 +102,36 @@
             let numCle = e.keyCode;
             if (numCle === 37 && posX > 0) { // Gauche
                 posX -= 0.06;
+                binRunnerLeft = true;
+                binRunnerRight = false;
             } else if (numCle === 39 && posX < 27) { // Droite
                 posX += 0.06;
+                binRunnerLeft = false;
+                binRunnerRight = true;
             }
         }
 
         // Pour dessiner
         function dessiner() {
             objC2D.save()
+            // objC2D.fillStyle = "white"
             objC2D.fillRect(0, 0, objCanvas.width, objCanvas.height);
             dessinerNiveau()
             // objC2D.translate(objCanvas.width / 2, objCanvas.height / 2)
+            objC2D.translate(posX * blockSizeX,posY * blockSizeY+5)
             var runner = new Runner(posX * blockSizeX, posY * blockSizeY)
-            runner.dessiner()
+            if(binRunnerLeft)
+            {
+                runner.dessiner()
+            }
+            else if(binRunnerRight)
+            {
+                runner.dessiner2()
+            }
+            else{
+                runner.dessiner3()
+            }
+            
             // objC2D.beginPath();
             // objC2D.fillStyle = 'white';
             // objC2D.fillRect(posX * blockSizeX, posY * blockSizeY, blockSizeX, blockSizeY);
