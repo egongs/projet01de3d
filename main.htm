@@ -30,6 +30,7 @@
         var tabObjets = [];
         var binRunnerLeft = false;
         var binRunnerRight = false;
+        var binPeutBouger = true;
         var timer = 0;
         var runner = null;
         var tabRunnerGauche = [1, 2, 3];
@@ -38,8 +39,8 @@
         var binPeutMonter = false;
         var binPeutDescendre = false;
 
-        var posX = 14;
-        var posY = 14;
+        var posX = 7;
+        var posY = 12;
 
         function initAnimation() {
             objCanvas = document.getElementById('monCanvas');
@@ -81,43 +82,54 @@
         // Pour mettre à jour l'animation
         function mettreAjourAnimation() {
 
-            if (tabObjets[posY][parseInt(posX)] instanceof Or) {
-                let ligne = niveau[posY]
+            let intPosY = parseInt(posY);
+
+            if (tabObjets[intPosY][parseInt(posX)] instanceof Or) {
+                let ligne = niveau[intPosY]
                 
                 for (let i = 0; i < ligne.length; i++) {
                     if (ligne[i] == 'O') {
                         let ligneTemp = ligne;
                         ligne = ligne.substring(0, i) + 'R' + ligneTemp.substring(i + 'R'.length)
                     }
-                    niveau[posY] = ligne;
-                    tabObjets[posY][parseInt(posX)] = null;
+                    niveau[intPosY] = ligne;
+                    tabObjets[intPosY][parseInt(posX)] = null;
                 }
             }
 
-            binPeutMonter = (tabObjets[posY][parseInt(posX)] instanceof Echelle);
-            binPeutDescendre = (tabObjets[posY + 1][parseInt(posX)] instanceof Echelle);
+            if (tabObjets[intPosY + 1][parseInt(posX)] == null) {
+                binPeutBouger = false;
+                posY += 0.1;
+            } else {
+                binPeutBouger = true;
+            }
+
+            binPeutMonter = (tabObjets[intPosY][parseInt(posX)] instanceof Echelle);
+            binPeutDescendre = (tabObjets[intPosY + 1][parseInt(posX)] instanceof Echelle);
 
         }
 
         function mouvement(e) {
             let numCle = e.keyCode;
-            if (numCle === 37 && posX > 0) { // Gauche
-                posX -= 0.06;
-                binRunnerLeft = true;
-                binRunnerRight = false;
-                timer++
-            } else if (numCle === 39 && posX < 27) { // Droite
-                posX += 0.06;
-                binRunnerLeft = false;
-                binRunnerRight = true;
-                timer++
-            } else if (numCle === 38 && binPeutMonter) { // Haut
-                posY -= 1;
-            } else if (numCle === 40 && binPeutDescendre) { // Bas
-                posY += 1;
-            }
-            else{
-                timer = 0
+            if (binPeutBouger) {
+                if (numCle === 37 && posX > 0) { // Gauche
+                    posX -= 0.06;
+                    binRunnerLeft = true;
+                    binRunnerRight = false;
+                    timer++
+                } else if (numCle === 39 && posX < 27.5) { // Droite
+                    posX += 0.06;
+                    binRunnerLeft = false;
+                    binRunnerRight = true;
+                    timer++
+                } else if (numCle === 38 && binPeutMonter) { // Haut
+                    posY -= 1;
+                } else if (numCle === 40 && binPeutDescendre) { // Bas
+                    posY += 1;
+                }
+                else {
+                    timer = 0
+                }
             }
             
         }
