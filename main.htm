@@ -14,6 +14,7 @@
     <script src="./or.js"></script>
     <script src="./bedBlock.js"></script>
     <script src="./runner.js"></script>
+    <script src="./rope.js"></script>
     <script type="text/javascript">
         var objCanvas = null;
         var objC2D = null;
@@ -86,7 +87,7 @@
 
             if (tabObjets[intPosY][parseInt(posX)] instanceof Or) {
                 let ligne = niveau[intPosY]
-                
+
                 for (let i = 0; i < ligne.length; i++) {
                     if (ligne[i] == 'O') {
                         let ligneTemp = ligne;
@@ -99,7 +100,7 @@
 
             if (tabObjets[intPosY + 1][parseInt(posX)] == null) {
                 binPeutBouger = false;
-                posY += 0.1;
+                posY += 0.06;
             } else {
                 binPeutBouger = true;
             }
@@ -130,8 +131,8 @@
                 else {
                     timer = 0
                 }
+
             }
-            
         }
 
         // Pour dessiner
@@ -151,7 +152,7 @@
                 else if (timer % 5 == 2) {
                     runner.dessinerGauche()
                 }
-                else{
+                else {
                     runner.dessinerGaucheMid()
                 }
             }
@@ -166,7 +167,7 @@
                 else if (timer % 5 == 2) {
                     runner.dessinerDroite()
                 }
-                else{
+                else {
                     runner.dessinerDroiteMid()
                 }
 
@@ -234,6 +235,11 @@
                         case "G":
                             {
                                 //create Winning echelle
+                            }
+                            break;
+                        case "R":
+                            {
+                                tabObjets[i][j] = new Rope(blockSizeX, j, i);
                             }
                             break;
                         default:
