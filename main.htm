@@ -39,8 +39,9 @@
 
         var binPeutMonter = false;
         var binPeutDescendre = false;
+        var binDecend = false;
 
-        var posX = 7;
+        var posX = 20;
         var posY = 12;
 
         function initAnimation() {
@@ -97,16 +98,21 @@
                     tabObjets[intPosY][parseInt(posX)] = null;
                 }
             }
-
-            if (tabObjets[intPosY + 1][parseInt(posX)] == null) {
+            
+            if(binDecend == true && binPeutDescendre == true && tabObjets[intPosY][parseInt(posX)] instanceof Rope)
+            {
+                console.log(binDecend)
+                binPeutBouger = false;
+                posY += 0.06
+            }
+            if ((tabObjets[intPosY + 1][parseInt(posX)] == null || tabObjets[intPosY+1][parseInt(posX)] instanceof Or) && !(tabObjets[intPosY][parseInt(posX)] instanceof Rope)) {
                 binPeutBouger = false;
                 posY += 0.06;
             } else {
                 binPeutBouger = true;
             }
-
             binPeutMonter = (tabObjets[intPosY][parseInt(posX)] instanceof Echelle);
-            binPeutDescendre = (tabObjets[intPosY + 1][parseInt(posX)] instanceof Echelle);
+            binPeutDescendre = (tabObjets[intPosY + 1][parseInt(posX)] instanceof Echelle || tabObjets[intPosY][parseInt(posX)] instanceof Rope);
 
         }
 
@@ -124,12 +130,14 @@
                     binRunnerRight = true;
                     timer++
                 } else if (numCle === 38 && binPeutMonter) { // Haut
-                    posY -= 1;
+                    posY -= 0.06;
                 } else if (numCle === 40 && binPeutDescendre) { // Bas
-                    posY += 1;
+                    posY += 0.06;
+                    binDecend = true;
                 }
                 else {
                     timer = 0
+                    binDecend = false;
                 }
 
             }
@@ -237,7 +245,7 @@
                                 //create Winning echelle
                             }
                             break;
-                        case "R":
+                        case "P":
                             {
                                 tabObjets[i][j] = new Rope(blockSizeX, j, i);
                             }
