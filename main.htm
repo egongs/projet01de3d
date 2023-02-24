@@ -15,6 +15,8 @@
     <script src="./bedBlock.js"></script>
     <script src="./runner.js"></script>
     <script src="./rope.js"></script>
+    <script src="./chrono.js"></script>
+    <script src="./mouvement.js"></script>
     <script type="text/javascript">
         var objCanvas = null;
         var objC2D = null;
@@ -32,10 +34,15 @@
         var binRunnerLeft = false;
         var binRunnerRight = false;
         var binPeutBouger = true;
-        var timer = 0;
         var runner = null;
         var tabRunnerGauche = [1, 2, 3];
         var tabRunnerDroite = [1, 2, 3];
+        var timer = 0;
+        var score = 0;
+        var niv = 1;
+        var vies = 5;
+        var chrono = new Chrono();
+        var temps = chrono.chrono();
 
         var binPeutMonter = false;
         var binPeutDescendre = false;
@@ -43,6 +50,8 @@
 
         var posX = 20;
         var posY = 12;
+
+        
 
         function initAnimation() {
             objCanvas = document.getElementById('monCanvas');
@@ -97,17 +106,23 @@
                     niveau[intPosY] = ligne;
                     tabObjets[intPosY][parseInt(posX)] = null;
                 }
+                score += 250;
+                document.getElementById("audioCoin").play();
+                document.getElementById("audioCoin").volume = 0.1
             }
-            
-            if(binDecend == true && binPeutDescendre == true && tabObjets[intPosY][parseInt(posX)] instanceof Rope)
-            {
+
+            if (binDecend == true && binPeutDescendre == true && tabObjets[intPosY][parseInt(posX)] instanceof Rope) {
                 console.log(binDecend)
                 binPeutBouger = false;
                 posY += 0.06
+                document.getElementById("audioFall").play();
+                document.getElementById("audioFall").volume = 0.1
             }
-            if ((tabObjets[intPosY + 1][parseInt(posX)] == null || tabObjets[intPosY+1][parseInt(posX)] instanceof Or) && !(tabObjets[intPosY][parseInt(posX)] instanceof Rope)) {
+            if ((tabObjets[intPosY + 1][parseInt(posX)] == null || tabObjets[intPosY + 1][parseInt(posX)] instanceof Or) && !(tabObjets[intPosY][parseInt(posX)] instanceof Rope)) {
                 binPeutBouger = false;
                 posY += 0.06;
+                document.getElementById("audioFall").play();
+                document.getElementById("audioFall").volume = 0.1
             } else {
                 binPeutBouger = true;
             }
@@ -116,39 +131,66 @@
 
         }
 
-        function mouvement(e) {
-            let numCle = e.keyCode;
-            if (binPeutBouger) {
-                if (numCle === 37 && posX > 0) { // Gauche
-                    posX -= 0.06;
-                    binRunnerLeft = true;
-                    binRunnerRight = false;
-                    timer++
-                } else if (numCle === 39 && posX < 27.5) { // Droite
-                    posX += 0.06;
-                    binRunnerLeft = false;
-                    binRunnerRight = true;
-                    timer++
-                } else if (numCle === 38 && binPeutMonter) { // Haut
-                    posY -= 0.06;
-                } else if (numCle === 40 && binPeutDescendre) { // Bas
-                    posY += 0.06;
-                    binDecend = true;
-                }
-                else {
-                    timer = 0
-                    binDecend = false;
-                }
-
-            }
-        }
-
         // Pour dessiner
         function dessiner() {
             objC2D.save()
             objC2D.fillRect(0, 0, objCanvas.width, objCanvas.height);
-            dessinerNiveau()
-            objC2D.translate(posX * blockSizeX, posY * blockSizeY + 5)
+            dessinerNiveau();
+
+            objC2D.beginPath();
+            objC2D.strokeStyle = "yellow";
+            objC2D.lineWidth = 75;
+            objC2D.strokeRect(0, 0, objCanvas.width, objCanvas.height);
+            objC2D.closePath();
+
+            objC2D.beginPath()
+            objC2D.fillStyle = "black";
+            objC2D.font = "30px Arial";
+            objC2D.textAlign = "center";
+            objC2D.fillText("LoadRunner", objCanvas.width / 2, 30);
+            objC2D.closePath()
+
+            objC2D.beginPath()
+            objC2D.fillStyle = "black";
+            objC2D.font = "30px Arial";
+            objC2D.textAlign = "center";
+            objC2D.fillText("par Nikola Ivanov et Justin Perron", objCanvas.width / 2, objCanvas.height - 10);
+            objC2D.closePath()
+
+            objC2D.beginPath()
+            objC2D.fillStyle = "orange";
+            objC2D.font = "40px Arial";
+            objC2D.textAlign = "center";
+            objC2D.fillText("Socre: " + score.toString().padStart(7, '0'), 210, objCanvas.height - 55);
+            objC2D.closePath()
+
+            if(typeof temps === "undefined")
+            {
+                temps = "00:00"
+            }
+
+            objC2D.beginPath()
+            objC2D.fillStyle = "orange";
+            objC2D.font = "40px Arial";
+            objC2D.textAlign = "center";
+            objC2D.fillText("Temps: " + temps , 525, objCanvas.height - 55);
+            objC2D.closePath()
+
+            objC2D.beginPath()
+            objC2D.fillStyle = "orange";
+            objC2D.font = "40px Arial";
+            objC2D.textAlign = "center";
+            objC2D.fillText("Niveau: " + niv, 800, objCanvas.height - 55);
+            objC2D.closePath()
+
+            objC2D.beginPath()
+            objC2D.fillStyle = "orange";
+            objC2D.font = "40px Arial";
+            objC2D.textAlign = "center";
+            objC2D.fillText("Vies: " + vies , 1000, objCanvas.height - 55);
+            objC2D.closePath()
+            
+            objC2D.translate(posX * blockSizeX + 37.5, posY * blockSizeY + 5 + 37.5)
             runner = new Runner(posX * blockSizeX, posY * blockSizeY);
             if (binRunnerLeft) {
                 if (timer % 5 == 0) {
@@ -191,7 +233,7 @@
                 for (var j = 0; j < tabObjets[i].length; j++) {
                     if (tabObjets[i][j] != null) {
                         objC2D.save();
-                        objC2D.translate(j * blockSizeX, i * blockSizeY);
+                        objC2D.translate(j * blockSizeX + 37.5, i * blockSizeY + 37.5);
                         tabObjets[i][j].dessiner();
                         objC2D.restore();
                     }
@@ -265,7 +307,13 @@
 </head>
 
 <body onload="initAnimation()" onkeydown="mouvement(event)">
-    <canvas id="monCanvas" width="1080" height="640" tabIndex="1">
+    <audio id="audioCoin">
+        <source src="collect-ring-15982.mp3"> 
+    </audio>
+    <audio id="audioFall">
+        <source src="mixkit-digital-cartoon-falling-405.wav"> 
+    </audio>
+    <canvas id="monCanvas" width="1155" height="745" tabIndex="1">
         Votre navigateur ne supporte pas la balise canvas
     </canvas>
 </body>
