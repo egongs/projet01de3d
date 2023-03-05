@@ -17,6 +17,7 @@
     <script src="./rope.js"></script>
     <script src="./chrono.js"></script>
     <script src="./mouvement.js"></script>
+    <script src="./guarde.js"></script>
     <script type="text/javascript">
         var objCanvas = null;
         var objC2D = null;
@@ -35,6 +36,7 @@
         var binRunnerRight = false;
         var binPeutBouger = true;
         var runner = null;
+        var Guarde1 = null;
         var tabRunnerGauche = [1, 2, 3];
         var tabRunnerDroite = [1, 2, 3];
         var timer = 0;
@@ -52,7 +54,7 @@
         var posY = 12;
         //changes
 
-        
+
 
         function initAnimation() {
             objCanvas = document.getElementById('monCanvas');
@@ -165,8 +167,7 @@
             objC2D.fillText("Socre: " + score.toString().padStart(7, '0'), 210, objCanvas.height - 55);
             objC2D.closePath()
 
-            if(typeof temps === "undefined")
-            {
+            if (typeof temps === "undefined") {
                 temps = "00:00"
             }
 
@@ -174,7 +175,7 @@
             objC2D.fillStyle = "orange";
             objC2D.font = "40px Arial";
             objC2D.textAlign = "center";
-            objC2D.fillText("Temps: " + temps , 525, objCanvas.height - 55);
+            objC2D.fillText("Temps: " + temps, 525, objCanvas.height - 55);
             objC2D.closePath()
 
             objC2D.beginPath()
@@ -188,45 +189,79 @@
             objC2D.fillStyle = "orange";
             objC2D.font = "40px Arial";
             objC2D.textAlign = "center";
-            objC2D.fillText("Vies: " + vies , 1000, objCanvas.height - 55);
+            objC2D.fillText("Vies: " + vies, 1000, objCanvas.height - 55);
             objC2D.closePath()
-            
+
             objC2D.translate(posX * blockSizeX + 37.5, posY * blockSizeY + 5 + 37.5)
             runner = new Runner(posX * blockSizeX, posY * blockSizeY);
+            // objC2D.translate(21 * blockSizeX + 37.5, posY * blockSizeY + 5 + 37.5)
+            // Guarde1 = new Guarde((posX+1) * blockSizeX, posY * blockSizeY, "blue")
+            // objC2D.translate(22 * blockSizeX + 37.5, posY * blockSizeY + 5 + 37.5)
+            // var Guarde2 = new Guarde(22 * blockSizeX, posY * blockSizeY, "blue")
+            // objC2D.translate(23 * blockSizeX + 37.5, posY * blockSizeY + 5 + 37.5)
+            // var Guarde3 = new Guarde(23 * blockSizeX, posY * blockSizeY, "green")
             if (binRunnerLeft) {
                 if (timer % 5 == 0) {
                     runner.dessinerGaucheFull()
+                    // Guarde1.dessinerGaucheFull()
+                    // Guarde2.dessinerGaucheFull()
+                    // Guarde3.dessinerGaucheFull()
                 }
                 else if (timer % 5 == 1) {
                     runner.dessinerGaucheMid()
+                    // Guarde1.dessinerGaucheMid()
+                    // Guarde2.dessinerGaucheMid()
+                    // Guarde3.dessinerGaucheMid()
                 }
                 else if (timer % 5 == 2) {
                     runner.dessinerGauche()
+                    // Guarde1.dessinerGauche()
+                    // Guarde2.dessinerGauche()
+                    // Guarde3.dessinerGauche()
                 }
                 else {
                     runner.dessinerGaucheMid()
+                    Guarde1.dessinerGaucheMid()
+                    // Guarde2.dessinerGaucheMid()
+                    // Guarde3.dessinerGaucheMid()
                 }
             }
             else if (binRunnerRight) {
 
                 if (timer % 5 == 0) {
                     runner.dessinerDroiteFull()
+                    // Guarde1.dessinerDroiteFull()
+                    // Guarde2.dessinerDroiteFull()
+                    // Guarde3.dessinerDroiteFull()
                 }
                 else if (timer % 5 == 1) {
                     runner.dessinerDroiteMid()
+                    // Guarde1.dessinerDroiteMid()
+                    // Guarde2.dessinerDroiteMid()
+                    // Guarde3.dessinerDroiteMid()
                 }
                 else if (timer % 5 == 2) {
                     runner.dessinerDroite()
+                    // Guarde1.dessinerDroite()
+                    // Guarde2.dessinerDroite()
+                    // Guarde3.dessinerDroite()
                 }
                 else {
                     runner.dessinerDroiteMid()
+                    // Guarde1.dessinerDroiteMid()
+                    // Guarde2.dessinerDroiteMid()
+                    // Guarde3.dessinerDroiteMid()
                 }
 
             }
             else {
                 runner.dessinerSpawn()
+                // Guarde1.dessinerSpawn()
+                // Guarde2.dessinerSpawn()
+                // Guarde3.dessinerSpawn()
             }
             objC2D.restore()
+            
         }
 
         function dessinerNiveau() {
@@ -309,10 +344,10 @@
 
 <body onload="initAnimation()" onkeydown="mouvement(event)">
     <audio id="audioCoin">
-        <source src="collect-ring-15982.mp3"> 
+        <source src="collect-ring-15982.mp3">
     </audio>
     <audio id="audioFall">
-        <source src="mixkit-digital-cartoon-falling-405.wav"> 
+        <source src="mixkit-digital-cartoon-falling-405.wav">
     </audio>
     <canvas id="monCanvas" width="1155" height="745" tabIndex="1">
         Votre navigateur ne supporte pas la balise canvas

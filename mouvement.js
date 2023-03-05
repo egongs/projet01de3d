@@ -14,7 +14,7 @@ function mouvement(e) {
         } else if (numCle === 38 && binPeutMonter) { // Haut
             posY -= 1;
         } else if (numCle === 40 && binPeutDescendre) { // Bas
-            posY += 0.06;
+            posY += 1;
             binDecend = true;
         }
         else {
