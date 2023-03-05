@@ -1,4 +1,5 @@
 function mouvement(e) {
+
     let numCle = e.keyCode;
     if (binPeutBouger) {
         if (numCle === 37 && posX > 0) { // Gauche
@@ -17,7 +18,13 @@ function mouvement(e) {
             posY += 1;
             binDecend = true;
         }
-        else {
+        else if (numCle == 90) { // Z: Trou à gauche
+            binCreuseTrouGauche = true;
+            creuserTrou();
+        } else if (numCle == 88) { // X: Trou à droite
+            binCreuseTrouDroite = true;
+            creuserTrou();
+        } else {
             timer = 0
             binDecend = false;
         }
