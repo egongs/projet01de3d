@@ -57,6 +57,12 @@
         var binGuarde1Gauche = false;
         var binGuarde1Droite = false;
 
+        var binGuarde2Gauche = false;
+        var binGuarde2Droite = false;
+
+        var binGuarde3Gauche = false;
+        var binGuarde3Droite = false;
+
         var posX = 20;
         var posY = 12;
         //changes
@@ -77,7 +83,7 @@
             initTabObjets();
             dessiner(); // Dessiner une première fois
             animer();  // animer
-            
+
         }
 
         // Un cycle d'animation	
@@ -144,8 +150,8 @@
             binPeutMonter = (tabObjets[intPosY][parseInt(posX)] instanceof Echelle);
             binPeutDescendre = (tabObjets[intPosY + 1][parseInt(posX)] instanceof Echelle || tabObjets[intPosY][parseInt(posX)] instanceof Rope);
             bots()
-            
-            
+
+
         }
 
         function creuserTrou() {
@@ -171,7 +177,7 @@
                 let tempY = intPosY + 1;
 
                 tabObjets[tempY][tempX] = null;
-                var timer = setInterval(function() {
+                var timer = setInterval(function () {
                     intTemps++;
                     if (intTemps == 8) {
                         tabObjets[tempY][tempX] = new Platform(imagePlatForm, blockSizeX, blockSizeY);
@@ -184,7 +190,7 @@
                 let tempY = intPosY + 1;
 
                 tabObjets[tempY][tempX] = null;
-                var timer = setInterval(function() {
+                var timer = setInterval(function () {
                     intTemps++;
                     if (intTemps == 8) {
                         tabObjets[tempY][tempX] = new Platform(imagePlatForm, blockSizeX, blockSizeY);
@@ -263,34 +269,34 @@
                 }
                 else if (timer % 5 == 1) {
                     runner.dessinerGaucheMid()
-                    
+
                 }
                 else if (timer % 5 == 2) {
                     runner.dessinerGauche()
-                    
+
                 }
                 else {
                     runner.dessinerGaucheMid()
-                    
+
                 }
             }
             else if (binRunnerRight) {
 
                 if (timer % 5 == 0) {
                     runner.dessinerDroiteFull()
-                    
+
                 }
                 else if (timer % 5 == 1) {
                     runner.dessinerDroiteMid()
-                    
+
                 }
                 else if (timer % 5 == 2) {
                     runner.dessinerDroite()
-                    
+
                 }
                 else {
                     runner.dessinerDroiteMid()
-                    
+
                 }
 
             }
@@ -299,11 +305,11 @@
             }
 
             objC2D.restore()
-
+            const d = new Date()
             objC2D.save()
             objC2D.translate(Guarde1.posX + 37.5, Guarde1.posY + 5 + 37.5)
-            const d = new Date()
-            if (binGuarde1Gauche) {
+
+            if (binGuarde1Gauche == true) {
                 if (d.getSeconds() % 3 == 0) {
                     Guarde1.dessinerGaucheFull()
                 }
@@ -317,9 +323,9 @@
                     Guarde1.dessinerGaucheMid()
                 }
             }
-            else if (binGuarde1Droite) {
+            else if (binGuarde1Droite == true) {
 
-                if (d.getSeconds() % 3  == 0) {
+                if (d.getSeconds() % 3 == 0) {
                     Guarde1.dessinerDroiteFull()
                 }
                 else if (d.getSeconds() % 3 == 1) {
@@ -338,44 +344,129 @@
             }
             objC2D.restore()
 
-            // objC2D.save()
-            // objC2D.translate(Guarde2.posX + 37.5, Guarde2.posY + 5 + 37.5)
-            // Guarde2.dessinerSpawn()
-            // objC2D.restore()
+            objC2D.save()
+            objC2D.translate(Guarde2.posX + 37.5, Guarde2.posY + 5 + 37.5)
+            if (binGuarde2Gauche == true) {
+                if (d.getSeconds() % 3 == 0) {
+                    Guarde2.dessinerGaucheFull()
+                }
+                else if (d.getSeconds() % 3 == 1) {
+                    Guarde2.dessinerGaucheMid()
+                }
+                else if (d.getSeconds() % 3 == 2) {
+                    Guarde2.dessinerGauche()
+                }
+                else {
+                    Guarde2.dessinerGaucheMid()
+                }
+            }
+            else if (binGuarde2Droite == true) {
 
-            // objC2D.save()
-            // objC2D.translate(Guarde3.posX + 37.5, Guarde3.posY + 5 + 37.5)
-            // Guarde3.dessinerSpawn()
-            // objC2D.restore()
+                if (d.getSeconds() % 3 == 0) {
+                    Guarde2.dessinerDroiteFull()
+                }
+                else if (d.getSeconds() % 3 == 1) {
+                    Guarde2.dessinerDroiteMid()
+                }
+                else if (d.getSeconds() % 3 == 2) {
+                    Guarde2.dessinerDroite()
+                }
+                else {
+                    Guarde2.dessinerDroiteMid()
+                }
+
+
+            }
+            else {
+                Guarde2.dessinerSpawn()
+            }
+            objC2D.restore()
+
+            objC2D.save()
+            objC2D.translate(Guarde3.posX + 37.5, Guarde3.posY + 5 + 37.5)
+            if (binGuarde3Gauche == true) {
+                if (d.getSeconds() % 3 == 0) {
+                    Guarde3.dessinerGaucheFull()
+                }
+                else if (d.getSeconds() % 3 == 1) {
+                    Guarde3.dessinerGaucheMid()
+                }
+                else if (d.getSeconds() % 3 == 2) {
+                    Guarde3.dessinerGauche()
+                }
+                else {
+                    Guarde3.dessinerGaucheMid()
+                }
+            }
+            else if (binGuarde3Droite == true) {
+
+                if (d.getSeconds() % 3 == 0) {
+                    Guarde3.dessinerDroiteFull()
+                }
+                else if (d.getSeconds() % 3 == 1) {
+                    Guarde3.dessinerDroiteMid()
+                }
+                else if (d.getSeconds() % 3 == 2) {
+                    Guarde3.dessinerDroite()
+                }
+                else {
+                    Guarde3.dessinerDroiteMid()
+                }
+
+            }
+            else {
+                Guarde3.dessinerSpawn()
+            }
+            objC2D.restore()
 
         }
 
         function bots() {
-            if (Guarde1.posX <= runner.posX) {
+            if (Guarde1.posX < runner.posX - 0.03) {
                 Guarde1.posX += 0.03;
                 binGuarde1Droite = true;
-                binGuarde1Gauche =false;
+                binGuarde1Gauche = false;
             }
-            else if (Guarde1.posX >= runner.posX) {
+            else if (Guarde1.posX > runner.posX + 0.03) {
                 Guarde1.posX -= 0.03;
                 binGuarde1Droite = false;
-                binGuarde1Gauche =true;
+                binGuarde1Gauche = true;
             }
-            console.log(Guarde1.posX == runner.posX)
+            else {
+                binGuarde1Droite = false;
+                binGuarde1Gauche = false;
+            }
 
-            // if (Guarde2.posX <= runner.posX) {
-            //     Guarde2.posX += 0.04;
-            // }
-            // else if (Guarde2.posX >= runner.posX) {
-            //     Guarde2.posX -= 0.04;
-            // }
+            if (Guarde2.posX < runner.posX - 0.03) {
+                Guarde2.posX += 0.03;
+                binGuarde2Droite = true;
+                binGuarde2Gauche = false;
+            }
+            else if (Guarde2.posX > runner.posX + 0.03) {
+                Guarde2.posX -= 0.03;
+                binGuarde2Droite = false;
+                binGuarde2Gauche = true;
+            }
+            else {
+                binGuarde2Droite = false;
+                binGuarde2Gauche = false;
+            }
 
-            // if (Guarde3.posX <= runner.posX) {
-            //     Guarde3.posX += 0.04;
-            // }
-            // else if (Guarde3.posX >= runner.posX) {
-            //     Guarde3.posX -= 0.04;
-            // }
+            if (Guarde3.posX < runner.posX - 0.03) {
+                Guarde3.posX += 0.03;
+                binGuarde3Droite = true;
+                binGuarde3Gauche = false;
+            }
+            else if (Guarde3.posX > runner.posX + 0.03) {
+                Guarde3.posX -= 0.03;
+                binGuarde3Droite = false;
+                binGuarde3Gauche = true;
+            }
+            else {
+                binGuarde3Droite = false;
+                binGuarde3Gauche = false;
+            }
+
         }
 
         function dessinerNiveau() {
