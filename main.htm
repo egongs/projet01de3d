@@ -37,9 +37,8 @@
         var binPeutBouger = true;
         var runner = null;
         var Guarde1 = null;
-        var tabRunnerGauche = [1, 2, 3];
-        var tabRunnerDroite = [1, 2, 3];
         var timer = 0;
+        var timerGuarde1 = 0;
         var score = 0;
         var niv = 1;
         var vies = 5;
@@ -55,9 +54,15 @@
         var binPeutCreuserTrouGauche = false;
         var binPeutCreuserTrouDroite = false;
 
+        var binGuarde1Gauche = false;
+        var binGuarde1Droite = false;
+
         var posX = 20;
         var posY = 12;
         //changes
+        Guarde1 = new Guarde(14 * blockSizeX, 14 * blockSizeY, "blue")
+        Guarde2 = new Guarde(16 * blockSizeX, 14 * blockSizeY, "red")
+        Guarde3 = new Guarde(12 * blockSizeX, 14 * blockSizeY, "green")
 
 
 
@@ -101,6 +106,7 @@
         // Pour mettre à jour l'animation
         function mettreAjourAnimation() {
 
+
             let intPosY = parseInt(posY);
 
             if (tabObjets[intPosY][parseInt(posX)] instanceof Or) {
@@ -136,6 +142,9 @@
             }
             binPeutMonter = (tabObjets[intPosY][parseInt(posX)] instanceof Echelle);
             binPeutDescendre = (tabObjets[intPosY + 1][parseInt(posX)] instanceof Echelle || tabObjets[intPosY][parseInt(posX)] instanceof Rope);
+            bots()
+            
+            
         }
 
         function creuserTrou() {
@@ -246,74 +255,126 @@
 
             objC2D.translate(posX * blockSizeX + 37.5, posY * blockSizeY + 5 + 37.5)
             runner = new Runner(posX * blockSizeX, posY * blockSizeY);
-            // objC2D.translate(21 * blockSizeX + 37.5, posY * blockSizeY + 5 + 37.5)
-            // Guarde1 = new Guarde((posX+1) * blockSizeX, posY * blockSizeY, "blue")
-            // objC2D.translate(22 * blockSizeX + 37.5, posY * blockSizeY + 5 + 37.5)
-            // var Guarde2 = new Guarde(22 * blockSizeX, posY * blockSizeY, "blue")
-            // objC2D.translate(23 * blockSizeX + 37.5, posY * blockSizeY + 5 + 37.5)
-            // var Guarde3 = new Guarde(23 * blockSizeX, posY * blockSizeY, "green")
+
             if (binRunnerLeft) {
                 if (timer % 5 == 0) {
                     runner.dessinerGaucheFull()
-                    // Guarde1.dessinerGaucheFull()
-                    // Guarde2.dessinerGaucheFull()
-                    // Guarde3.dessinerGaucheFull()
                 }
                 else if (timer % 5 == 1) {
                     runner.dessinerGaucheMid()
-                    // Guarde1.dessinerGaucheMid()
-                    // Guarde2.dessinerGaucheMid()
-                    // Guarde3.dessinerGaucheMid()
+                    
                 }
                 else if (timer % 5 == 2) {
                     runner.dessinerGauche()
-                    // Guarde1.dessinerGauche()
-                    // Guarde2.dessinerGauche()
-                    // Guarde3.dessinerGauche()
+                    
                 }
                 else {
                     runner.dessinerGaucheMid()
-                    // Guarde1.dessinerGaucheMid()
-                    // Guarde2.dessinerGaucheMid()
-                    // Guarde3.dessinerGaucheMid()
+                    
                 }
             }
             else if (binRunnerRight) {
 
                 if (timer % 5 == 0) {
                     runner.dessinerDroiteFull()
-                    // Guarde1.dessinerDroiteFull()
-                    // Guarde2.dessinerDroiteFull()
-                    // Guarde3.dessinerDroiteFull()
+                    
                 }
                 else if (timer % 5 == 1) {
                     runner.dessinerDroiteMid()
-                    // Guarde1.dessinerDroiteMid()
-                    // Guarde2.dessinerDroiteMid()
-                    // Guarde3.dessinerDroiteMid()
+                    
                 }
                 else if (timer % 5 == 2) {
                     runner.dessinerDroite()
-                    // Guarde1.dessinerDroite()
-                    // Guarde2.dessinerDroite()
-                    // Guarde3.dessinerDroite()
+                    
                 }
                 else {
                     runner.dessinerDroiteMid()
-                    // Guarde1.dessinerDroiteMid()
-                    // Guarde2.dessinerDroiteMid()
-                    // Guarde3.dessinerDroiteMid()
+                    
                 }
 
             }
             else {
                 runner.dessinerSpawn()
-                // Guarde1.dessinerSpawn()
-                // Guarde2.dessinerSpawn()
-                // Guarde3.dessinerSpawn()
+            }
+
+            objC2D.restore()
+
+            objC2D.save()
+            objC2D.translate(Guarde1.posX + 37.5, Guarde1.posY + 5 + 37.5)
+            if (binGuarde1Gauche) {
+                if (timerGuarde1 % 5 == 0) {
+                    Guarde1.dessinerGaucheFull()
+                }
+                else if (timerGuarde1 % 5 == 1) {
+                    Guarde1.dessinerGaucheMid()
+                }
+                else if (timerGuarde1 % 5 == 2) {
+                    Guarde1.dessinerGauche()
+                }
+                else {
+                    Guarde1.dessinerGaucheMid()
+                }
+            }
+            else if (binGuarde1Droite) {
+
+                if (timerGuarde1 % 5 == 0) {
+                    Guarde1.dessinerDroiteFull()
+                }
+                else if (timerGuarde1 % 5 == 1) {
+                    Guarde1.dessinerDroiteMid()
+                }
+                else if (timerGuarde1 % 5 == 2) {
+                    Guarde1.dessinerDroite()
+                }
+                else {
+                    Guarde1.dessinerDroiteMid()
+                }
+
+            }
+            else {
+                Guarde1.dessinerSpawn()
             }
             objC2D.restore()
-            
+
+            // objC2D.save()
+            // objC2D.translate(Guarde2.posX + 37.5, Guarde2.posY + 5 + 37.5)
+            // Guarde2.dessinerSpawn()
+            // objC2D.restore()
+
+            // objC2D.save()
+            // objC2D.translate(Guarde3.posX + 37.5, Guarde3.posY + 5 + 37.5)
+            // Guarde3.dessinerSpawn()
+            // objC2D.restore()
+
+        }
+
+        function bots() {
+            if (Guarde1.posX <= runner.posX) {
+                Guarde1.posX += 0.04;
+                binGuarde1Droite = true;
+                binGuarde1Gauche =false;
+                timerGuarde1 += 0.5
+            }
+            else if (Guarde1.posX >= runner.posX) {
+                Guarde1.posX -= 0.04;
+                binGuarde1Droite = false;
+                binGuarde1Gauche =true;
+                timerGuarde1 += 0.05
+            }
+
+            // if (Guarde2.posX <= runner.posX) {
+            //     Guarde2.posX += 0.04;
+            // }
+            // else if (Guarde2.posX >= runner.posX) {
+            //     Guarde2.posX -= 0.04;
+            // }
+
+            // if (Guarde3.posX <= runner.posX) {
+            //     Guarde3.posX += 0.04;
+            // }
+            // else if (Guarde3.posX >= runner.posX) {
+            //     Guarde3.posX -= 0.04;
+            // }
         }
 
         function dessinerNiveau() {
@@ -327,7 +388,6 @@
                     }
                 }
             }
-
         }
         function initImagePlatForm() {
             imagePlatForm = new Image();
