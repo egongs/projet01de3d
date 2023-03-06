@@ -451,71 +451,75 @@
 
         function bots() {
             var tabEchelle = Array();
-            var tabProche = Array();
-            let posYGarde = parseInt(Guarde1.posY / blockSizeY);
-            let intPosX = parseInt(posX);
-            let intPosY = parseInt(posY);
-            let echelle = Array();
+            var proche
+            var Guarde1PosX = parseInt(Guarde1.posX / blockSizeX)
+            var Guarde1PosY = parseInt(Guarde1.posY / blockSizeY)
+            for (var i = 0; i < tabObjets[Guarde1PosY].length; i++) {
+                if (tabObjets[Guarde1PosY][i] instanceof Echelle) {
+                    tabEchelle.push(i)
+                }
 
-            for (let i = 0; i < tabObjets.length; i++) {
-                for (let j = 0; j < tabObjets[i].length; j++) {
-                    if (tabObjets[i][j] instanceof Echelle) {
-                        tabEchelle.push([j,i]);
-                    }
+                if (tabObjets[Guarde1PosY + 1][i] instanceof Echelle) {
+                    tabEchelle.push(i)
                 }
+
             }
-            console.log(tabEchelle)
-            // for (var i = 0; i < tabEchelle.length; i++) {
-            //     tabProche.push(tabEchelle[i] - Guarde1.posX)
-            // }
-            let proche = null;
-            let shortestDistance = Infinity;
-            for (var i = 0; i < tabEchelle.length; i++) {
-                for (var j = 0; j < tabEchelle[i].length; j++) {
-                    const distance = Math.abs(tabEchelle[i][j][0] - parseInt(posX)) + Math.abs(tabEchelle[i][j][1] - parseInt(posY));
-                    console.log(distance)
-                    if (distance < shortestDistance) {
-                        proche = tabEchelle[i][j];
-                        shortestDistance = distance;
-                    }
-                }
-            }
+            // Échelle la plus proche
+            proche = tabEchelle.reduce(function (prev, curr) {
+                return (Math.abs(curr - Guarde1PosX) < Math.abs(prev - Guarde1PosX) ? curr : prev);
+            });
             console.log(proche)
-            if (Guarde1.posY > parseInt(runner.posY)) {
-                if (tabObjets[parseInt(Guarde1.posY / blockSizeY) + 1][parseInt(Guarde1.posX / blockSizeX)] == null) {
+            // for (var i = 0; i < tabEchelle.length; i++) {
+            //     if (tabEchelle[i] > Guarde1PosX) {
+            //         proche = (tabEchelle[i] * blockSizeX) - Guarde1.posX
+            //     }
+            //     else {
+            //         proche = Guarde1.posX - (tabEchelle[i] * blockSizeX)
+            //     }
+
+            // }
+            // console.log(proche)
+
+                console.log(runner.posY)
+                console.log(Guarde1.posY)
+            if (Guarde1.posY > parseInt(runner.posY)) { // Si garde est en dessous du runner
+
+                if ((tabObjets[Guarde1PosY + 1][Guarde1PosX] == null || tabObjets[Guarde1PosY + 1][Guarde1PosX] instanceof Or || tabObjets[Guarde1PosY + 1][Guarde1PosX] instanceof Rope)
+                    && !(tabObjets[Guarde1PosY][Guarde1PosX] instanceof Rope)) { // Gravité du garde
                     Guarde1.posY += 1
                 }
-                else if (tabObjets[parseInt(Guarde1.posY / blockSizeY)][parseInt(Guarde1.posX / blockSizeX)] instanceof Echelle) {
+                else if (tabObjets[Guarde1PosY][Guarde1PosX] instanceof Echelle) { // Si échelle prend la
                     Guarde1.posY -= 1 * blockSizeY
                 }
                 else {
-                    if (Guarde1.posX > proche[0]) {
+                    if (Guarde1.posX > proche) {
                         Guarde1.posX -= 1
                         binGuarde1Droite = false;
                         binGuarde1Gauche = true;
                     }
-                    else if (Guarde1.posX < proche[0]) {
+                    else if (Guarde1.posX < proche) {
                         Guarde1.posX += 1
                         binGuarde1Droite = true;
                         binGuarde1Gauche = false;
                     }
                 }
             }
-            else if (Guarde1.posY < parseInt(runner.posY)) {
-                if (tabObjets[parseInt(Guarde1.posY / blockSizeY) + 1][parseInt(Guarde1.posX / blockSizeX)] == null) {
+            else if (Guarde1.posY < parseInt(runner.posY)) { // Si garde est au dessus du runner
+                if ((tabObjets[Guarde1PosY + 1][Guarde1PosX] == null || tabObjets[Guarde1PosY + 1][Guarde1PosX] instanceof Or || tabObjets[Guarde1PosY + 1][Guarde1PosX] instanceof Rope)
+                    && !(tabObjets[Guarde1PosY][Guarde1PosX] instanceof Rope)) {
                     Guarde1.posY += 1
                 }
-                else if ((tabObjets[posYGarde][parseInt(Guarde1.posX / blockSizeX)] instanceof Echelle
-                    || tabObjets[posYGarde + 1][parseInt(Guarde1.posX / blockSizeX)] instanceof Echelle)) {
+                else if ((tabObjets[parseInt(Guarde1.posY / blockSizeY)][parseInt(Guarde1.posX / blockSizeX)] instanceof Echelle
+                    || tabObjets[parseInt(Guarde1.posY / blockSizeY) + 1][parseInt(Guarde1.posX / blockSizeX)] instanceof Echelle)) {
                     Guarde1.posY += blockSizeY
                 }
                 else {
-                    if (Guarde1.posX > proche[0]) {
+                    if (Guarde1.posX > proche) {
                         Guarde1.posX -= 1
                         binGuarde1Droite = false;
                         binGuarde1Gauche = true;
                     }
-                    else if (Guarde1.posX < proche[0]) {
+                    else if (Guarde1.posX < proche) {
                         Guarde1.posX += 1
                         binGuarde1Droite = true;
                         binGuarde1Gauche = false;
@@ -524,20 +528,22 @@
 
 
             }
-            else if (Guarde1.posY == parseInt(runner.posY)) {
-                if (tabObjets[parseInt(Guarde1.posY / blockSizeY) + 1][parseInt(Guarde1.posX / blockSizeX)] == null
-                    && !(tabObjets[parseInt(Guarde1.posY / blockSizeY)][parseInt(Guarde1.posX / blockSizeX)] instanceof Rope)) {
+            else if (Guarde1.posY == parseInt(runner.posY)) { // Si garde est au même niveau que le runner
+                if ((tabObjets[Guarde1PosY + 1][Guarde1PosX] == null || tabObjets[Guarde1PosY + 1][Guarde1PosX] instanceof Or || tabObjets[Guarde1PosY + 1][Guarde1PosX] instanceof Rope)
+                    && !(tabObjets[Guarde1PosY][Guarde1PosX] instanceof Rope)) { // Gravité mm niveau
                     Guarde1.posY += 1
                 }
-                else if (Guarde1.posX < runner.posX - 1) {
-                    Guarde1.posX += 1;
-                    binGuarde1Droite = true;
-                    binGuarde1Gauche = false;
-                }
-                else if (Guarde1.posX > runner.posX + 1) {
-                    Guarde1.posX -= 1;
-                    binGuarde1Droite = false;
-                    binGuarde1Gauche = true;
+                else if (1 == 1) {
+                    if (Guarde1.posX < runner.posX - 1) {
+                        Guarde1.posX += 1;
+                        binGuarde1Droite = true;
+                        binGuarde1Gauche = false;
+                    }
+                    else if (Guarde1.posX > runner.posX + 1) {
+                        Guarde1.posX -= 1;
+                        binGuarde1Droite = false;
+                        binGuarde1Gauche = true;
+                    }
                 }
                 else {
                     binGuarde1Droite = false;
