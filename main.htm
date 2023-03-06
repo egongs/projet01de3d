@@ -457,26 +457,30 @@
             let intPosY = parseInt(posY);
             let echelle = Array();
 
-            // for (let i = 0; i < tabObjets.length; i++) {
-            //     for (let j = 0; j < tabObjets[i].length; j++) {
-            //         if (tabObjets[i][j] instanceof Echelle) {
-            //             echelle.push([j,i]);
-            //         }
-            //     }
-            //     tabEchelle.push(echelle);
-            // }
-            for (var i = 0; i < tabEchelle.length; i++) {
-                tabProche.push(tabEchelle[i] - Guarde1.posX)
-            }
-            let proche = null;
-            let shortestDistance = Infinity;
-            for (let ladder of tabEchelle) {
-                const distance = Math.abs(ladder[0] - runner[0]) + Math.abs(ladder[1] - runner[1]);
-                if (distance < shortestDistance) {
-                    proche = ladder;
-                    shortestDistance = distance;
+            for (let i = 0; i < tabObjets.length; i++) {
+                for (let j = 0; j < tabObjets[i].length; j++) {
+                    if (tabObjets[i][j] instanceof Echelle) {
+                        tabEchelle.push([j,i]);
+                    }
                 }
             }
+            console.log(tabEchelle)
+            // for (var i = 0; i < tabEchelle.length; i++) {
+            //     tabProche.push(tabEchelle[i] - Guarde1.posX)
+            // }
+            let proche = null;
+            let shortestDistance = Infinity;
+            for (var i = 0; i < tabEchelle.length; i++) {
+                for (var j = 0; j < tabEchelle[i].length; j++) {
+                    const distance = Math.abs(tabEchelle[i][j][0] - parseInt(posX)) + Math.abs(tabEchelle[i][j][1] - parseInt(posY));
+                    console.log(distance)
+                    if (distance < shortestDistance) {
+                        proche = tabEchelle[i][j];
+                        shortestDistance = distance;
+                    }
+                }
+            }
+            console.log(proche)
             if (Guarde1.posY > parseInt(runner.posY)) {
                 if (tabObjets[parseInt(Guarde1.posY / blockSizeY) + 1][parseInt(Guarde1.posX / blockSizeX)] == null) {
                     Guarde1.posY += 1
@@ -485,12 +489,12 @@
                     Guarde1.posY -= 1 * blockSizeY
                 }
                 else {
-                    if (Guarde1.posX > proche) {
+                    if (Guarde1.posX > proche[0]) {
                         Guarde1.posX -= 1
                         binGuarde1Droite = false;
                         binGuarde1Gauche = true;
                     }
-                    else if (Guarde1.posX < proche) {
+                    else if (Guarde1.posX < proche[0]) {
                         Guarde1.posX += 1
                         binGuarde1Droite = true;
                         binGuarde1Gauche = false;
@@ -506,12 +510,12 @@
                     Guarde1.posY += blockSizeY
                 }
                 else {
-                    if (Guarde1.posX > proche) {
+                    if (Guarde1.posX > proche[0]) {
                         Guarde1.posX -= 1
                         binGuarde1Droite = false;
                         binGuarde1Gauche = true;
                     }
-                    else if (Guarde1.posX < proche) {
+                    else if (Guarde1.posX < proche[0]) {
                         Guarde1.posX += 1
                         binGuarde1Droite = true;
                         binGuarde1Gauche = false;
