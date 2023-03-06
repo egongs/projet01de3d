@@ -69,7 +69,7 @@
         var posX = 20;
         var posY = 12;
         //changes
-        Guarde1 = new Guarde(14 * blockSizeX, 14 * blockSizeY, "blue")
+        Guarde1 = new Guarde(14 * blockSizeX, 9 * blockSizeY, "blue")
         Guarde2 = new Guarde(16 * blockSizeX, 14 * blockSizeY, "red")
         Guarde3 = new Guarde(12 * blockSizeX, 14 * blockSizeY, "green")
 
@@ -326,163 +326,213 @@
             objC2D.save()
             objC2D.translate(Guarde1.posX + 37.5, Guarde1.posY + 5 + 37.5)
 
-            if (binGuarde1Gauche == true) {
-                if (d.getSeconds() % 3 == 0) {
-                    Guarde1.dessinerGaucheFull()
-                }
-                else if (d.getSeconds() % 3 == 1) {
-                    Guarde1.dessinerGaucheMid()
-                }
-                else if (d.getSeconds() % 3 == 2) {
-                    Guarde1.dessinerGauche()
-                }
-                else {
-                    Guarde1.dessinerGaucheMid()
-                }
-            }
-            else if (binGuarde1Droite == true) {
+            // if (binGuarde1Gauche == true) {
+            //     if (d.getSeconds() % 3 == 0) {
+            //         Guarde1.dessinerGaucheFull()
+            //     }
+            //     else if (d.getSeconds() % 3 == 1) {
+            //         Guarde1.dessinerGaucheMid()
+            //     }
+            //     else if (d.getSeconds() % 3 == 2) {
+            //         Guarde1.dessinerGauche()
+            //     }
+            //     else {
+            //         Guarde1.dessinerGaucheMid()
+            //     }
+            // }
+            // else if (binGuarde1Droite == true) {
 
-                if (d.getSeconds() % 3 == 0) {
-                    Guarde1.dessinerDroiteFull()
-                }
-                else if (d.getSeconds() % 3 == 1) {
-                    Guarde1.dessinerDroiteMid()
-                }
-                else if (d.getSeconds() % 3 == 2) {
-                    Guarde1.dessinerDroite()
-                }
-                else {
-                    Guarde1.dessinerDroiteMid()
-                }
+            //     if (d.getSeconds() % 3 == 0) {
+            //         Guarde1.dessinerDroiteFull()
+            //     }
+            //     else if (d.getSeconds() % 3 == 1) {
+            //         Guarde1.dessinerDroiteMid()
+            //     }
+            //     else if (d.getSeconds() % 3 == 2) {
+            //         Guarde1.dessinerDroite()
+            //     }
+            //     else {
+            //         Guarde1.dessinerDroiteMid()
+            //     }
 
-            }
-            else {
-                Guarde1.dessinerSpawn()
-            }
+            // }
+            // else {
+            Guarde1.dessinerSpawn()
+            // }
             objC2D.restore()
 
-            objC2D.save()
-            objC2D.translate(Guarde2.posX + 37.5, Guarde2.posY + 5 + 37.5)
-            if (binGuarde2Gauche == true) {
-                if (d.getSeconds() % 3 == 0) {
-                    Guarde2.dessinerGaucheFull()
-                }
-                else if (d.getSeconds() % 3 == 1) {
-                    Guarde2.dessinerGaucheMid()
-                }
-                else if (d.getSeconds() % 3 == 2) {
-                    Guarde2.dessinerGauche()
-                }
-                else {
-                    Guarde2.dessinerGaucheMid()
-                }
-            }
-            else if (binGuarde2Droite == true) {
+            // objC2D.save()
+            // objC2D.translate(Guarde2.posX + 37.5, Guarde2.posY + 5 + 37.5)
+            // if (binGuarde2Gauche == true) {
+            //     if (d.getSeconds() % 3 == 0) {
+            //         Guarde2.dessinerGaucheFull()
+            //     }
+            //     else if (d.getSeconds() % 3 == 1) {
+            //         Guarde2.dessinerGaucheMid()
+            //     }
+            //     else if (d.getSeconds() % 3 == 2) {
+            //         Guarde2.dessinerGauche()
+            //     }
+            //     else {
+            //         Guarde2.dessinerGaucheMid()
+            //     }
+            // }
+            // else if (binGuarde2Droite == true) {
 
-                if (d.getSeconds() % 3 == 0) {
-                    Guarde2.dessinerDroiteFull()
-                }
-                else if (d.getSeconds() % 3 == 1) {
-                    Guarde2.dessinerDroiteMid()
-                }
-                else if (d.getSeconds() % 3 == 2) {
-                    Guarde2.dessinerDroite()
-                }
-                else {
-                    Guarde2.dessinerDroiteMid()
-                }
+            //     if (d.getSeconds() % 3 == 0) {
+            //         Guarde2.dessinerDroiteFull()
+            //     }
+            //     else if (d.getSeconds() % 3 == 1) {
+            //         Guarde2.dessinerDroiteMid()
+            //     }
+            //     else if (d.getSeconds() % 3 == 2) {
+            //         Guarde2.dessinerDroite()
+            //     }
+            //     else {
+            //         Guarde2.dessinerDroiteMid()
+            //     }
 
 
-            }
-            else {
-                Guarde2.dessinerSpawn()
-            }
-            objC2D.restore()
+            // }
+            // else {
+            //     Guarde2.dessinerSpawn()
+            // }
+            // objC2D.restore()
 
-            objC2D.save()
-            objC2D.translate(Guarde3.posX + 37.5, Guarde3.posY + 5 + 37.5)
-            if (binGuarde3Gauche == true) {
-                if (d.getSeconds() % 3 == 0) {
-                    Guarde3.dessinerGaucheFull()
-                }
-                else if (d.getSeconds() % 3 == 1) {
-                    Guarde3.dessinerGaucheMid()
-                }
-                else if (d.getSeconds() % 3 == 2) {
-                    Guarde3.dessinerGauche()
-                }
-                else {
-                    Guarde3.dessinerGaucheMid()
-                }
-            }
-            else if (binGuarde3Droite == true) {
+            // objC2D.save()
+            // objC2D.translate(Guarde3.posX + 37.5, Guarde3.posY + 5 + 37.5)
+            // if (binGuarde3Gauche == true) {
+            //     if (d.getSeconds() % 3 == 0) {
+            //         Guarde3.dessinerGaucheFull()
+            //     }
+            //     else if (d.getSeconds() % 3 == 1) {
+            //         Guarde3.dessinerGaucheMid()
+            //     }
+            //     else if (d.getSeconds() % 3 == 2) {
+            //         Guarde3.dessinerGauche()
+            //     }
+            //     else {
+            //         Guarde3.dessinerGaucheMid()
+            //     }
+            // }
+            // else if (binGuarde3Droite == true) {
 
-                if (d.getSeconds() % 3 == 0) {
-                    Guarde3.dessinerDroiteFull()
-                }
-                else if (d.getSeconds() % 3 == 1) {
-                    Guarde3.dessinerDroiteMid()
-                }
-                else if (d.getSeconds() % 3 == 2) {
-                    Guarde3.dessinerDroite()
-                }
-                else {
-                    Guarde3.dessinerDroiteMid()
-                }
+            //     if (d.getSeconds() % 3 == 0) {
+            //         Guarde3.dessinerDroiteFull()
+            //     }
+            //     else if (d.getSeconds() % 3 == 1) {
+            //         Guarde3.dessinerDroiteMid()
+            //     }
+            //     else if (d.getSeconds() % 3 == 2) {
+            //         Guarde3.dessinerDroite()
+            //     }
+            //     else {
+            //         Guarde3.dessinerDroiteMid()
+            //     }
 
-            }
-            else {
-                Guarde3.dessinerSpawn()
-            }
-            objC2D.restore()
+            // }
+            // else {
+            //     Guarde3.dessinerSpawn()
+            // }
+            // objC2D.restore()
 
         }
 
         function bots() {
-            if (Guarde1.posX < runner.posX - 0.03) {
-                Guarde1.posX += 0.03;
-                binGuarde1Droite = true;
-                binGuarde1Gauche = false;
-            }
-            else if (Guarde1.posX > runner.posX + 0.03) {
-                Guarde1.posX -= 0.03;
-                binGuarde1Droite = false;
-                binGuarde1Gauche = true;
-            }
-            else {
-                binGuarde1Droite = false;
-                binGuarde1Gauche = false;
-            }
+            // if (Guarde1.posX < runner.posX - 0.03) {
+            //     Guarde1.posX += 1;
+            //     binGuarde1Droite = true;
+            //     binGuarde1Gauche = false;
+            // }
+            // else if (Guarde1.posX > runner.posX + 0.03) {
+            //     Guarde1.posX -= 0.03;
+            //     binGuarde1Droite = false;
+            //     binGuarde1Gauche = true;
+            // }
+            // else {
+            //     binGuarde1Droite = false;
+            //     binGuarde1Gauche = false;
+            // }
 
-            if (Guarde2.posX < runner.posX - 0.03) {
-                Guarde2.posX += 0.03;
-                binGuarde2Droite = true;
-                binGuarde2Gauche = false;
+            if (Guarde1.posY > parseInt(runner.posY)) {
+                if (tabObjets[parseInt(Guarde1.posY / blockSizeY)][parseInt(Guarde1.posX / blockSizeX)] instanceof Echelle) {
+                    Guarde1.posY -= 1 * blockSizeY
+                }
+                else {
+                    Guarde1.posX += 1
+                }
             }
-            else if (Guarde2.posX > runner.posX + 0.03) {
-                Guarde2.posX -= 0.03;
-                binGuarde2Droite = false;
-                binGuarde2Gauche = true;
-            }
-            else {
-                binGuarde2Droite = false;
-                binGuarde2Gauche = false;
-            }
+            else if(Guarde1.posY < parseInt(runner.posY))
+            {
+                // if ((tabObjets[parseInt(Guarde1.posY / blockSizeY)][parseInt(Guarde1.posX / blockSizeX)] instanceof Echelle 
+                // || tabObjets[parseInt(Guarde1.posY / blockSizeY)+1][parseInt(Guarde1.posX / blockSizeX)] instanceof Echelle)&& 
+                // !(tabObjets[parseInt(Guarde1.posY / blockSizeY)+1][parseInt(Guarde1.posX / blockSizeX)] instanceof Platform)) {
+                //     Guarde1.posY += 1
+                // }
+                // else {
+                //     Guarde1.posX += 1
+                // }
+                if(tabObjets[parseInt(Guarde1.posY / blockSizeY)+1][parseInt(Guarde1.posX / blockSizeX)] == null)
+                {
+                    Guarde1.posY += 1
+                }
+                else if ((tabObjets[parseInt(Guarde1.posY / blockSizeY)][parseInt(Guarde1.posX / blockSizeX)] instanceof Echelle 
+                 || tabObjets[parseInt(Guarde1.posY / blockSizeY)+1][parseInt(Guarde1.posX / blockSizeX)] instanceof Echelle))
+                {
+                    Guarde1.posY += blockSizeY
+                }
+                else {
+                    Guarde1.posX += 1
+                }
+                
 
-            if (Guarde3.posX < runner.posX - 0.03) {
-                Guarde3.posX += 0.03;
-                binGuarde3Droite = true;
-                binGuarde3Gauche = false;
             }
-            else if (Guarde3.posX > runner.posX + 0.03) {
-                Guarde3.posX -= 0.03;
-                binGuarde3Droite = false;
-                binGuarde3Gauche = true;
+            else if (Guarde1.posY == parseInt(runner.posY)) {
+                if (Guarde1.posX < runner.posX - 1) {
+                    Guarde1.posX += 1;
+                    binGuarde1Droite = true;
+                    binGuarde1Gauche = false;
+                }
+                else if (Guarde1.posX > runner.posX + 1) {
+                    Guarde1.posX -= 1;
+                    binGuarde1Droite = false;
+                    binGuarde1Gauche = true;
+                }
+                else {
+                    binGuarde1Droite = false;
+                    binGuarde1Gauche = false;
+                }
             }
-            else {
-                binGuarde3Droite = false;
-                binGuarde3Gauche = false;
-            }
+            console.log(Guarde1.posY +"             "+ runner.posY)
+            // if (Guarde2.posX < runner.posX - 0.03) {
+            //     Guarde2.posX += 0.03;
+            //     binGuarde2Droite = true;
+            //     binGuarde2Gauche = false;
+            // }
+            // else if (Guarde2.posX > runner.posX + 0.03) {
+            //     Guarde2.posX -= 0.03;
+            //     binGuarde2Droite = false;
+            //     binGuarde2Gauche = true;
+            // }
+            // else {
+            //     binGuarde2Droite = false;
+            //     binGuarde2Gauche = false;
+            // }
+
+            // if (Guarde3.posX < runner.posX - 0.03) {
+            //     Guarde3.posX += 0.03;
+            //     binGuarde3Droite = true;
+            //     binGuarde3Gauche = false;
+            // }
+            // else if (Guarde3.posX > runner.posX + 0.03) {
+            //     Guarde3.posX -= 0.03;
+            //     binGuarde3Droite = false;
+            //     binGuarde3Gauche = true;
+            // }
+            // else {
+            //     binGuarde3Droite = false;
+            //     binGuarde3Gauche = false;
+            // }
 
         }
 
