@@ -171,9 +171,17 @@
                 posY = 14;
 
                 tabObjets = tabObjets2;
+                intNbPiecesRamassees = 0;
             }
 
             bots()
+        }
+
+        function niveauFini() {
+            tabObjets[0][18] = new Echelle(imageEchelle, blockSizeX, blockSizeY);
+            tabObjets[1][18] = new Echelle(imageEchelle, blockSizeX, blockSizeY);
+            tabObjets[2][18] = new Echelle(imageEchelle, blockSizeX, blockSizeY);
+            tabObjets[3][18] = new Echelle(imageEchelle, blockSizeX, blockSizeY);
         }
 
         function creuserTrou() {
@@ -221,13 +229,6 @@
                 }, 1000);
                 binCreuseTrouDroite = false;
             }
-        }
-
-        function niveauFini() {
-            tabObjets[0][18] = new Echelle(imageEchelle, blockSizeX, blockSizeY);
-            tabObjets[1][18] = new Echelle(imageEchelle, blockSizeX, blockSizeY);
-            tabObjets[2][18] = new Echelle(imageEchelle, blockSizeX, blockSizeY);
-            tabObjets[3][18] = new Echelle(imageEchelle, blockSizeX, blockSizeY);
         }
 
         // Pour dessiner
@@ -462,8 +463,24 @@
                 if (tabObjets[Guarde1PosY + 1][i] instanceof Echelle) {
                     tabEchelle.push(i)
                 }
-
             }
+            // console.log(tabEchelle)
+            // for (var i = 0; i < tabEchelle.length; i++) {
+            //     tabProche.push(tabEchelle[i] - Guarde1.posX)
+            // }
+            // let proche = null;
+            // let shortestDistance = Infinity;
+            // for (var i = 0; i < tabEchelle.length; i++) {
+            //     for (var j = 0; j < tabEchelle[i].length; j++) {
+            //         const distance = Math.abs(tabEchelle[i][j] - parseInt(posX)) + Math.abs(tabEchelle[i][j] - parseInt(posY));
+                    
+            //         if (distance < shortestDistance) {
+            //             proche = tabEchelle[i][j];
+            //             shortestDistance = distance;
+            //         }
+            //     }
+
+            // }
             // Échelle la plus proche
             proche = tabEchelle.reduce(function (prev, curr) {
                 return (Math.abs(curr - Guarde1PosX) < Math.abs(prev - Guarde1PosX) ? curr : prev);
@@ -549,6 +566,10 @@
                     binGuarde1Droite = false;
                     binGuarde1Gauche = false;
                 }
+            }
+
+            if (Guarde1.posX == posX && Guarde1.posY == posY) {
+
             }
 
         }
