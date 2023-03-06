@@ -122,7 +122,7 @@
             // Ramasser pièce d'or
             if (tabObjets[intPosY][parseInt(posX)] instanceof Or) {
                 let ligne = niveau[intPosY]
-                
+
                 for (let i = 0; i < ligne.length; i++) {
                     if (ligne[i] == 'O') {
                         let ligneTemp = ligne;
@@ -130,7 +130,7 @@
                     }
                     niveau[intPosY] = ligne;
                     tabObjets[intPosY][parseInt(posX)] = null;
-                    
+
                 }
                 intNbPiecesRamassees++;
                 score += 250;
@@ -453,17 +453,33 @@
             //     binGuarde1Droite = false;
             //     binGuarde1Gauche = false;
             // }
+            var tabEchelle = Array();
+            var tabProche = Array();
+            for (var j = 0; j < tabObjets[parseInt(Guarde1.posY / blockSizeY)].length; j++) {
+                if (tabObjets[parseInt(Guarde1.posY / blockSizeY)][j] instanceof Echelle) {
+                    tabEchelle.push(j * blockSizeX)
+                }
+            }
+            for (var i = 0; i < tabEchelle.length; i++) {
+                tabProche.push(Guarde1.posX - tabEchelle[i])
+            }
+            var proche = Math.min(...tabProche)
 
+            console.log(proche)
             if (Guarde1.posY > parseInt(runner.posY)) {
                 if (tabObjets[parseInt(Guarde1.posY / blockSizeY)][parseInt(Guarde1.posX / blockSizeX)] instanceof Echelle) {
                     Guarde1.posY -= 1 * blockSizeY
                 }
                 else {
-                    Guarde1.posX += 1
+                    if (Guarde1.posX > proche) {
+                        Guarde1.posX -= 1
+                    }
+                    else if (Guarde1.posX < proche) {
+                        Guarde1.posX += 1
+                    }
                 }
             }
-            else if(Guarde1.posY < parseInt(runner.posY))
-            {
+            else if (Guarde1.posY < parseInt(runner.posY)) {
                 // if ((tabObjets[parseInt(Guarde1.posY / blockSizeY)][parseInt(Guarde1.posX / blockSizeX)] instanceof Echelle 
                 // || tabObjets[parseInt(Guarde1.posY / blockSizeY)+1][parseInt(Guarde1.posX / blockSizeX)] instanceof Echelle)&& 
                 // !(tabObjets[parseInt(Guarde1.posY / blockSizeY)+1][parseInt(Guarde1.posX / blockSizeX)] instanceof Platform)) {
@@ -472,19 +488,22 @@
                 // else {
                 //     Guarde1.posX += 1
                 // }
-                if(tabObjets[parseInt(Guarde1.posY / blockSizeY)+1][parseInt(Guarde1.posX / blockSizeX)] == null)
-                {
+                if (tabObjets[parseInt(Guarde1.posY / blockSizeY) + 1][parseInt(Guarde1.posX / blockSizeX)] == null) {
                     Guarde1.posY += 1
                 }
-                else if ((tabObjets[parseInt(Guarde1.posY / blockSizeY)][parseInt(Guarde1.posX / blockSizeX)] instanceof Echelle 
-                 || tabObjets[parseInt(Guarde1.posY / blockSizeY)+1][parseInt(Guarde1.posX / blockSizeX)] instanceof Echelle))
-                {
+                else if ((tabObjets[parseInt(Guarde1.posY / blockSizeY)][parseInt(Guarde1.posX / blockSizeX)] instanceof Echelle
+                    || tabObjets[parseInt(Guarde1.posY / blockSizeY) + 1][parseInt(Guarde1.posX / blockSizeX)] instanceof Echelle)) {
                     Guarde1.posY += blockSizeY
                 }
                 else {
-                    Guarde1.posX += 1
+                    if (Guarde1.posX > proche) {
+                        Guarde1.posX -= 1
+                    }
+                    else if (Guarde1.posX < proche) {
+                        Guarde1.posX += 1
+                    }
                 }
-                
+
 
             }
             else if (Guarde1.posY == parseInt(runner.posY)) {
@@ -503,7 +522,7 @@
                     binGuarde1Gauche = false;
                 }
             }
-            console.log(Guarde1.posY +"             "+ runner.posY)
+            // console.log(Guarde1.posY +"             "+ runner.posY)
             // if (Guarde2.posX < runner.posX - 0.03) {
             //     Guarde2.posX += 0.03;
             //     binGuarde2Droite = true;
