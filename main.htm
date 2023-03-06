@@ -157,14 +157,30 @@
             }
 
             if (binPeutCreuserTrouGauche && binCreuseTrouGauche) {
-                tabObjets[intPosY + 1][parseInt(posX) - 1] = null;
-                setInterval(intTemps++, 1000);
-                if (intTemps >= 8) {
-                    tabObjets[intPosY + 1][parseInt(posX) - 1] = new Platform;
-                }
+                let tempX = parseInt(posX) - 1;
+                let tempY = intPosY + 1;
+
+                tabObjets[tempY][tempX] = null;
+                var timer = setInterval(function() {
+                    intTemps++;
+                    if (intTemps == 8) {
+                        tabObjets[tempY][tempX] = new Platform(imagePlatForm, blockSizeX, blockSizeY);
+                        clearInterval(timer);
+                    }
+                }, 1000);
                 binCreuseTrouGauche = false;
             } else if (binPeutCreuserTrouDroite && binCreuseTrouDroite) {
-                tabObjets[intPosY + 1][parseInt(posX) + 1] = null;
+                let tempX = parseInt(posX) + 1;
+                let tempY = intPosY + 1;
+
+                tabObjets[tempY][tempX] = null;
+                var timer = setInterval(function() {
+                    intTemps++;
+                    if (intTemps == 8) {
+                        tabObjets[tempY][tempX] = new Platform(imagePlatForm, blockSizeX, blockSizeY);
+                        clearInterval(timer);
+                    }
+                }, 1000);
                 binCreuseTrouDroite = false;
             }
         }
