@@ -449,17 +449,31 @@
         function bots() {
             var tabEchelle = Array();
             var tabProche = Array();
-            for (var j = 0; j < tabObjets[parseInt(Guarde1.posY / blockSizeY)].length; j++) {
-                if (tabObjets[parseInt(Guarde1.posY / blockSizeY)][j] instanceof Echelle) {
-                    tabEchelle.push(j * blockSizeX)
-                }
-            }
+            let posYGarde = parseInt(Guarde1.posY / blockSizeY);
+            let intPosX = parseInt(posX);
+            let intPosY = parseInt(posY);
+            let echelle = Array();
+
+            // for (let i = 0; i < tabObjets.length; i++) {
+            //     for (let j = 0; j < tabObjets[i].length; j++) {
+            //         if (tabObjets[i][j] instanceof Echelle) {
+            //             echelle.push([j,i]);
+            //         }
+            //     }
+            //     tabEchelle.push(echelle);
+            // }
             for (var i = 0; i < tabEchelle.length; i++) {
                 tabProche.push(tabEchelle[i] - Guarde1.posX)
             }
-            var proche = Math.min(...tabProche)
-
-            console.log(proche)
+            let proche = null;
+            let shortestDistance = Infinity;
+            for (let ladder of tabEchelle) {
+                const distance = Math.abs(ladder[0] - runner[0]) + Math.abs(ladder[1] - runner[1]);
+                if (distance < shortestDistance) {
+                    proche = ladder;
+                    shortestDistance = distance;
+                }
+            }
             if (Guarde1.posY > parseInt(runner.posY)) {
                 if (tabObjets[parseInt(Guarde1.posY / blockSizeY) + 1][parseInt(Guarde1.posX / blockSizeX)] == null) {
                     Guarde1.posY += 1
@@ -484,8 +498,8 @@
                 if (tabObjets[parseInt(Guarde1.posY / blockSizeY) + 1][parseInt(Guarde1.posX / blockSizeX)] == null) {
                     Guarde1.posY += 1
                 }
-                else if ((tabObjets[parseInt(Guarde1.posY / blockSizeY)][parseInt(Guarde1.posX / blockSizeX)] instanceof Echelle
-                    || tabObjets[parseInt(Guarde1.posY / blockSizeY) + 1][parseInt(Guarde1.posX / blockSizeX)] instanceof Echelle)) {
+                else if ((tabObjets[posYGarde][parseInt(Guarde1.posX / blockSizeX)] instanceof Echelle
+                    || tabObjets[posYGarde + 1][parseInt(Guarde1.posX / blockSizeX)] instanceof Echelle)) {
                     Guarde1.posY += blockSizeY
                 }
                 else {
