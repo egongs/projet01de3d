@@ -32,6 +32,7 @@
         var blockSizeX = 38.57;
         var blockSizeY = 35;
         var tabObjets = [];
+        var tabObjets2 = [];
         var binRunnerLeft = false;
         var binRunnerRight = false;
         var binPeutBouger = true;
@@ -168,6 +169,8 @@
                 score += 1500;
                 posX = 14;
                 posY = 14;
+
+                tabObjets = tabObjets2;
             }
 
             bots()
@@ -571,41 +574,43 @@
         function initTabObjets() {
             for (var i = 0; i < niveau.length; i++) {
                 tabObjets[i] = [];
+                tabObjets2[i] = [];
                 for (var j = 0; j < niveau[i].length; j++) {
                     switch (niveau[i].charAt(j)) {
                         case "#":
                             {
                                 tabObjets[i][j] = new Platform(imagePlatForm, blockSizeX, blockSizeY);
+                                tabObjets2[i][j] = new Platform(imagePlatForm, blockSizeX, blockSizeY);
                             }
                             break;
                         case "E":
                             {
                                 tabObjets[i][j] = new Echelle(imageEchelle, blockSizeX, blockSizeY);
+                                tabObjets2[i][j] = new Echelle(imageEchelle, blockSizeX, blockSizeY);
                             }
                             break;
                         case "O":
                             {
                                 tabObjets[i][j] = new Or(imageOr, blockSizeX, blockSizeY, j, i);
+                                tabObjets2[i][j] = new Or(imageOr, blockSizeX, blockSizeY, j, i);
                             }
                             break;
                         case "B":
                             {
                                 tabObjets[i][j] = new BedBlock(imageBedBlock, blockSizeX, blockSizeY);
-                            }
-                            break;
-                        case "G":
-                            {
-                                //create Winning echelle
+                                tabObjets2[i][j] = new BedBlock(imageBedBlock, blockSizeX, blockSizeY);
                             }
                             break;
                         case "P":
                             {
                                 tabObjets[i][j] = new Rope(blockSizeX, j, i);
+                                tabObjets2[i][j] = new Rope(blockSizeX, j, i);
                             }
                             break;
                         default:
                             {
                                 tabObjets[i][j] = null;
+                                tabObjets2[i][j] = null;
                             }
                             break;
 
