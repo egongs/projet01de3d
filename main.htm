@@ -44,6 +44,7 @@
         var vies = 5;
         var chrono = new Chrono();
         var temps = chrono.chrono();
+        var intNbPiecesRamassees = 0;
 
         var binPeutMonter = false;
         var binPeutDescendre = false;
@@ -62,6 +63,8 @@
 
         var binGuarde3Gauche = false;
         var binGuarde3Droite = false;
+
+        var binNiveauFini = false;
 
         var posX = 20;
         var posY = 12;
@@ -116,9 +119,10 @@
 
             let intPosY = parseInt(posY);
 
+            // Ramasser pièce d'or
             if (tabObjets[intPosY][parseInt(posX)] instanceof Or) {
                 let ligne = niveau[intPosY]
-
+                
                 for (let i = 0; i < ligne.length; i++) {
                     if (ligne[i] == 'O') {
                         let ligneTemp = ligne;
@@ -126,10 +130,16 @@
                     }
                     niveau[intPosY] = ligne;
                     tabObjets[intPosY][parseInt(posX)] = null;
+                    
                 }
+                intNbPiecesRamassees++;
                 score += 250;
                 document.getElementById("audioCoin").play();
                 document.getElementById("audioCoin").volume = 0.1
+
+                if (intNbPiecesRamassees == 6) {
+                    niveauFini();
+                }
             }
 
             if (binDecend == true && binPeutDescendre == true && tabObjets[intPosY][parseInt(posX)] instanceof Rope) {
@@ -201,6 +211,13 @@
             }
         }
 
+        function niveauFini() {
+            tabObjets[0][18] = new Echelle(imageEchelle, blockSizeX, blockSizeY);
+            tabObjets[1][18] = new Echelle(imageEchelle, blockSizeX, blockSizeY);
+            tabObjets[2][18] = new Echelle(imageEchelle, blockSizeX, blockSizeY);
+            tabObjets[3][18] = new Echelle(imageEchelle, blockSizeX, blockSizeY);
+            score += 1500;
+        }
 
         // Pour dessiner
         function dessiner() {
