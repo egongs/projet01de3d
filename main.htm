@@ -149,19 +149,28 @@
                 document.getElementById("audioFall").play();
                 document.getElementById("audioFall").volume = 0.1
             }
-            if ((tabObjets[intPosY + 1][parseInt(posX)] == null || tabObjets[intPosY + 1][parseInt(posX)] instanceof Or) && !(tabObjets[intPosY][parseInt(posX)] instanceof Rope)) {
+            // Gravité
+            if ((tabObjets[intPosY + 1][parseInt(posX)] == null || tabObjets[intPosY + 1][parseInt(posX)] instanceof Or || tabObjets[intPosY + 1][parseInt(posX)] instanceof Rope)
+                && !(tabObjets[intPosY][parseInt(posX)] instanceof Rope)) {
                 binPeutBouger = false;
-                posY += 0.06;
+                posY += 0.05;
                 document.getElementById("audioFall").play();
                 document.getElementById("audioFall").volume = 0.1
             } else {
                 binPeutBouger = true;
+                posY = parseInt(posY);
             }
-            binPeutMonter = (tabObjets[intPosY][parseInt(posX)] instanceof Echelle);
+            binPeutMonter = (tabObjets[intPosY][parseInt(posX)] instanceof Echelle) && intPosY > 0;
             binPeutDescendre = (tabObjets[intPosY + 1][parseInt(posX)] instanceof Echelle || tabObjets[intPosY][parseInt(posX)] instanceof Rope);
+
+            if (intPosY == 0 && parseInt(posX) == 18) {
+                niv++;
+                score += 1500;
+                posX = 14;
+                posY = 14;
+            }
+
             bots()
-
-
         }
 
         function creuserTrou() {
@@ -216,7 +225,6 @@
             tabObjets[1][18] = new Echelle(imageEchelle, blockSizeX, blockSizeY);
             tabObjets[2][18] = new Echelle(imageEchelle, blockSizeX, blockSizeY);
             tabObjets[3][18] = new Echelle(imageEchelle, blockSizeX, blockSizeY);
-            score += 1500;
         }
 
         // Pour dessiner
